@@ -13,6 +13,7 @@ export default class Post extends React.Component {
                 </Link>
                 <div className="tagline">{this.props.tagline}</div>
                 <div className="previewContainer">
+                    <div className="date">{this.props.createdAt}</div>
                     <div className="text">{this.props.text}</div>
                     <div className="previewText"/>
                 </div>

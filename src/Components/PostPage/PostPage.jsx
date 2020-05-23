@@ -28,7 +28,8 @@ export default class PostPage extends React.Component {
                 isLoading: true,
                 title: post.attrs.title,
                 tagline: post.attrs.tagline,
-                text: postFile
+                text: post.attrs.excerpt,
+                date: post.attrs.createdAt,
             })
         }
     }
@@ -39,6 +40,7 @@ export default class PostPage extends React.Component {
                 <div className="websiteNameSmall">Website Name</div>
                 <div className="title">{this.state.title}</div>
                 <div className="tagline">{this.state.tagline}</div>
+                <div className="tagline">{this.state.date}</div>
                 <div className="postText">
                     <ReactMarkdown source={this.state.text} />
                 </div>

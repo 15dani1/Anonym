@@ -30,7 +30,7 @@ export default class Home extends React.Component {
                     <div className="hottest">HOTTEST POSTS</div>
                     {this.state.isLoading && <span>Loading...</span>}
                     {this.state.posts.map((post) => (
-                        <Post postId={'/' + post._id} postTitle={post.attrs.title} tagline={post.attrs.tagline} text={post.attrs.excerpt}/>
+                        <Post postId={'/' + post._id} createdAt={post.attrs.createdAt} postTitle={post.attrs.title} tagline={post.attrs.tagline} text={post.attrs.excerpt}/>
                     ))}
                 </div>
             </div>

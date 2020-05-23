@@ -40,17 +40,38 @@ export default class App extends Component {
       }
     }
     return (
+      
       <Connect authOptions={authOptions}>
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
-            { !userData ? <Signin /> : <Switch>
+            <Switch>
+              <Route path='/create' render={
+                routeProps => !userData ? <Signin /> : <Profile
+                                userData={userData}
+                                handleSignOut={this.handleSignOut}
+                                {...routeProps} />
+              }/>
+              <Route path='/profile' render={
+                routeProps => !userData ? <Signin /> : <Profile
+                                userData={userData}
+                                handleSignOut={this.handleSignOut}
+                                {...routeProps} />
+              }/>
+              <Route path="/:postId">
+                <div>Testing</div>
+              </Route>
+              <Route path="/">
+                <div>Testing again</div>
+              </Route>
+            </Switch>
+            {/* { !userData ? <Signin /> : <Switch>
                                         <Route path='/:username?' render={
                                           routeProps => <Profile
                                                           userData={userData}
                                                           handleSignOut={this.handleSignOut}
                                                           {...routeProps} />
                                           }/>
-                                      </Switch> }
+                                      </Switch> } */}
           </div>
         </div>
       </Connect>

@@ -6,21 +6,20 @@ import {
   AppConfig
 } from 'blockstack';
 import { Connect } from '@blockstack/connect';
-
-import Post from './Components/Posts/Post.jsx';
+import { Switch, Route } from 'react-router-dom'
+import Post from "./Components/Posts/Post";
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
 
 export default class App extends Component {
+  state = {
+    userData: null,
+  }
 
   constructor(props) {
     super(props);
     this.handleSignOut = this.handleSignOut.bind(this);
-  }
-  
-  state = {
-    userData: null,
   }
 
   handleSignOut(e) {
@@ -46,7 +45,14 @@ export default class App extends Component {
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
             <Post postTitle="Post Title Here" tagline="Here, you can write your tagline" text="here is a bunch of random sample texts haha yup yessir is this long enough yet. Nope I don't think so. we'll just keep typing then in this box haha. We'll get a third line on here as well. Is this good?"/>
-            { !userData ? <Signin /> : <Profile userData={userData} handleSignOut={ this.handleSignOut } /> }
+            { !userData ? <Signin /> : <Switch>
+                                        <Route path='/:username?' render={
+                                          routeProps => <Profile
+                                                          userData={userData}
+                                                          handleSignOut={this.handleSignOut}
+                                                          {...routeProps} />
+                                          }/>
+                                      </Switch> }
           </div>
         </div>
       </Connect>

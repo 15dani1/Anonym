@@ -68,9 +68,9 @@ export default class App extends Component {
                                 handleSignOut={this.handleSignOut}
                                 {...routeProps} />
               }/>
-              <Route path="/:postId">
-                <div>Testing</div>
-              </Route>
+              <Route path="/:postId" render={
+                props => <PostPage {...props} />
+              }/>
               <Route path="/">
                 <Home />
               </Route>

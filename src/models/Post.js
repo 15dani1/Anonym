@@ -3,11 +3,20 @@ import {Model} from 'radiks';
 class PostObj extends Model {
     static className = 'PostObj';
     static schema = {
-        username: {
-            type:String,
-            decrypted:true
+        username: String,
+        title: {
+            type: String,
+            decrypted: true
         },
-        text: {
+        tagline: {
+            type:String,
+            decrypted: true
+        },
+        excerpt: {
+            type: String,
+            decrypted: true
+        },
+        fileId: {
             type:String,
             decrypted: true
         }

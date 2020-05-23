@@ -3,8 +3,11 @@ import Profile from './Profile.js';
 import Signin from './Signin.js';
 import { UserSession, AppConfig } from 'blockstack';
 import { Connect } from '@blockstack/connect';
+import { SearchInput } from 'evergreen-ui'
 import { Switch, Route } from 'react-router-dom'
 import {User, configure } from 'radiks'
+import Post from "./Components/Posts/Post";
+import Home from "./Components/Home"
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
@@ -43,17 +46,40 @@ export default class App extends Component {
     }
 
     return (
+      
       <Connect authOptions={authOptions}>
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
+            <div className="profile">
             { !userData ? <Signin /> : <Switch>
-                                        <Route path='/:username?' render={
-                                          routeProps => <Profile
-                                                          userData={userData}
-                                                          handleSignOut={this.handleSignOut}
-                                                          {...routeProps} />
-                                          }/>
-                                      </Switch> }
+              <Route path='/:username?' render={
+                routeProps => <Profile
+                    userData={userData}
+                    handleSignOut={this.handleSignOut}
+                    {...routeProps} />
+                }/>
+                </Switch> }
+            </div>
+            <Switch>
+              <Route path='/create' render={
+                routeProps => !userData ? <Signin /> : <Profile
+                                userData={userData}
+                                handleSignOut={this.handleSignOut}
+                                {...routeProps} />
+              }/>
+              <Route path='/profile' render={
+                routeProps => !userData ? <Signin /> : <Profile
+                                userData={userData}
+                                handleSignOut={this.handleSignOut}
+                                {...routeProps} />
+              }/>
+              <Route path="/:postId">
+                <div>Testing</div>
+              </Route>
+              <Route path="/">
+                <Home/>
+              </Route>
+            </Switch>
           </div>
         </div>
       </Connect>

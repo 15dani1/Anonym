@@ -6,6 +6,8 @@ import {
 import { useConnect } from '@blockstack/connect';
 import Status from './models/Status'
 
+import { toaster } from 'evergreen-ui'
+
 const avatarFallbackImage = 'https://s3.amazonaws.com/onename/avatar-placeholder.png';
 
 export const Profile = ({ userData, handleSignOut, match }) => {
@@ -29,6 +31,7 @@ export const Profile = ({ userData, handleSignOut, match }) => {
 
   const handleNewStatusSubmit = async (event) => {
     await saveNewStatus(newStatus);
+    toaster.notify("New status submitted!")
     setNewStatus("")
   }
 
@@ -81,9 +84,9 @@ export const Profile = ({ userData, handleSignOut, match }) => {
         <div className="col-md-offset-3 col-md-6">
           <div className="col-md-12">
             <div className="avatar-section">
-              <img src={ person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage } className="img-rounded avatar" id="avatar-image" alt=""/>
+              {/*<img src={ person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage } className="img-rounded avatar" id="avatar-image" alt=""/>*/}
               <div className="username">
-                <h1><span id="heading-name">{ person.name() ? person.name() : 'Nameless Person' }</span></h1>
+                {/*<h1><span id="heading-name">{ person.name() ? person.name() : 'Nameless Person' }</span></h1>*/}
                 <span>{ username }</span>
                 { isLocal() &&
                 <span>&nbsp;|&nbsp;<a onClick={ handleSignOut.bind(this)}>(Logout)</a></span> }

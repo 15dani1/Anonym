@@ -9,6 +9,7 @@ import { Connect } from '@blockstack/connect';
 import { SearchInput } from 'evergreen-ui'
 import { Switch, Route } from 'react-router-dom'
 import Post from "./Components/Posts/Post";
+import CreatePost from "./Components/CreatePost/CreatePost";
 import Home from "./Components/Home"
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
@@ -49,7 +50,7 @@ export default class App extends Component {
           <div className="site-wrapper-inner">
             <Switch>
               <Route path='/create' render={
-                routeProps => !userData ? <Signin /> : <Profile
+                routeProps => !userData ? <Signin /> : <CreatePost
                                 userData={userData}
                                 handleSignOut={this.handleSignOut}
                                 {...routeProps} />

@@ -4,6 +4,7 @@ import {
   lookupProfile
 } from 'blockstack';
 import { useConnect } from '@blockstack/connect';
+import Status from './models/Status'
 
 const avatarFallbackImage = 'https://s3.amazonaws.com/onename/avatar-placeholder.png';
 
@@ -33,15 +34,14 @@ export const Profile = ({ userData, handleSignOut, match }) => {
 
   const saveNewStatus = async (statusText) => {
     const _statuses = statuses
-    let status = {
-      id: statusIndex + 1,
-      text: statusText.trim(),
-      created_at: Date.now()
-    }
+
+    let status = new Status({
+      username: username,
+      text: statusText, 
+    })
 
     _statuses.unshift(status)
-    const options = { encrypt: false };
-    await userSession.putFile('statuses.json', JSON.stringify(_statuses), options);
+    await status.save();
     setStatuses(_statuses);
     setStatusIndex(statusIndex + 1);
   }
@@ -49,9 +49,8 @@ export const Profile = ({ userData, handleSignOut, match }) => {
   const fetchData = async () => {
     setLoading(true)
     if (isLocal()) {
-      const options = {decrypt: false}
-      const file = await userSession.getFile('statuses.json', options)
-      const _statuses = JSON.parse(file || '[]')
+      const _statuses = await Status.fetchOwnList();
+      
       setStatusIndex(_statuses.length);
       setStatuses(_statuses);
       setLoading(false);
@@ -62,9 +61,7 @@ export const Profile = ({ userData, handleSignOut, match }) => {
         setPerson(new Person(newProfile));
         setUsername(username);
 
-        const options = { username: username, decrypt: false }
-        const file = await userSession.getFile('statuses.json', options)
-        const _statuses = JSON.parse(file || '[]')
+        const _statuses = await Status.fetchList({username: username});
         setStatusIndex(_statuses.length);
         setStatuses(_statuses);
         setLoading(false);
@@ -106,7 +103,7 @@ export const Profile = ({ userData, handleSignOut, match }) => {
           <div className="col-md-12 statuses">
               {isLoading && <span>Loading...</span>}
               {statuses.map((status) => (
-                <div className="status" key="status.id">{status.text}</div>
+                <div className="status">{status.attrs.text}</div>
               ))}
             </div>
         </div>

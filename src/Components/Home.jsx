@@ -9,7 +9,7 @@ export default class Home extends React.Component {
             <div className="homepage">
                 <div className="websiteName">Website Name</div>
                 <div style={{marginTop: '60px'}}>
-                    <SearchInput height={40} placeholder="Filter traits..."/>
+                    <SearchInput height={40} placeholder="Search posts..." width="876px" style={{borderRadius: "50px"}}/>
                 </div>
                 <div className="feed">
                     <div className="hottest">HOTTEST POSTS</div>

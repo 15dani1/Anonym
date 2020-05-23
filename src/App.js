@@ -7,6 +7,8 @@ import {
 } from 'blockstack';
 import { Connect } from '@blockstack/connect';
 
+import Post from './Components/Posts/Post.jsx';
+
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
 
@@ -43,6 +45,7 @@ export default class App extends Component {
       <Connect authOptions={authOptions}>
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
+            <Post postTitle="Post Title Here" tagline="Here, you can write your tagline" text="here is a bunch of random sample texts haha yup yessir is this long enough yet. Nope I don't think so. we'll just keep typing then in this box haha. We'll get a third line on here as well. Is this good?"/>
             { !userData ? <Signin /> : <Profile userData={userData} handleSignOut={ this.handleSignOut } /> }
           </div>
         </div>

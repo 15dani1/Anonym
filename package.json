@@ -22,6 +22,7 @@
     "evergreen-ui": "^4.27.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-markdown": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^3.4.1"
   },

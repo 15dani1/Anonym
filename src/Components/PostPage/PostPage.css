@@ -1,0 +1,52 @@
+.wrapper {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    color: #000000;
+    font-size: 20px;
+}
+
+.websiteNameSmall {
+    position: absolute;
+    top: 10px;
+    left: 40px;
+
+    font-family: Playfair Display;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.3rem;
+
+    color: black;
+}
+
+.title {
+    margin-top: 100px;
+
+    font-family: Playfair Display;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 72px;
+
+}
+
+.tagline {
+    width: 100%;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 28px;
+
+    color: #5B5B5B;
+}
+
+.postText {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 876px;
+    text-align: left;
+}

@@ -10,6 +10,7 @@ import { SearchInput } from 'evergreen-ui'
 import { Switch, Route } from 'react-router-dom'
 import Post from "./Components/Posts/Post";
 import Home from "./Components/Home"
+import PostPage from "./Components/PostPage/PostPage";
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
@@ -58,6 +59,9 @@ export default class App extends Component {
                 </Switch> }
             </div>
             <Switch>
+              <Route path='/firstPost'>
+                <PostPage title="This is The Post Title" tagline="Here is where the tagline appears" text='### This is a header\n\nAnd this is a paragraph' />
+              </Route>
               <Route path='/create' render={
                 routeProps => !userData ? <Signin /> : <Profile
                                 userData={userData}
@@ -74,7 +78,7 @@ export default class App extends Component {
                 <div>Testing</div>
               </Route>
               <Route path="/">
-                <Home/>
+                <Home />
               </Route>
             </Switch>
           </div>

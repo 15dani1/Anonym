@@ -8,6 +8,7 @@ import {
 import { Connect } from '@blockstack/connect';
 import { Switch, Route } from 'react-router-dom'
 import Post from "./Components/Posts/Post";
+import Home from "./Components/Home"
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
@@ -45,6 +46,7 @@ export default class App extends Component {
       <Connect authOptions={authOptions}>
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
+            <Home/>
             <Switch>
               <Route path='/create' render={
                 routeProps => !userData ? <Signin /> : <Profile

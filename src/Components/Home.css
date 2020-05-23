@@ -1,0 +1,21 @@
+.homepage {
+    height: 100%;
+    width: 100%;
+}
+
+.websiteName {
+    margin-top: 100px;
+
+    font-family: Playfair Display;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 72px;
+    line-height: 96px;
+
+    color: #000000;
+}
+
+.feed {
+    margin: auto;
+    width: 876px;
+}

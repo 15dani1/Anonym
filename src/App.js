@@ -50,16 +50,6 @@ export default class App extends Component {
       <Connect authOptions={authOptions}>
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
-            <div className="profile">
-            { !userData ? <Signin /> : <Switch>
-              <Route path='/:username?' render={
-                routeProps => <Profile
-                    userData={userData}
-                    handleSignOut={this.handleSignOut}
-                    {...routeProps} />
-                }/>
-                </Switch> }
-            </div>
             <Switch>
               <Route path='/create' render={
                 routeProps => !userData ? <Signin /> : <Profile

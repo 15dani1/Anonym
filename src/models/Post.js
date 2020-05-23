@@ -1,7 +1,7 @@
 import {Model} from 'radiks';
 
-class Status extends Model {
-    static className = 'Status';
+class PostObj extends Model {
+    static className = 'PostObj';
     static schema = {
         username: {
             type:String,
@@ -14,4 +14,4 @@ class Status extends Model {
     }
 };
 
-export default Status;
+export default PostObj;

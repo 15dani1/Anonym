@@ -4,7 +4,7 @@ import {
   lookupProfile
 } from 'blockstack';
 import { useConnect } from '@blockstack/connect';
-import Status from './models/Status'
+import PostObj from './models/Post'
 
 import { toaster } from 'evergreen-ui'
 
@@ -38,7 +38,7 @@ export const Profile = ({ userData, handleSignOut, match }) => {
   const saveNewStatus = async (statusText) => {
     const _statuses = statuses
 
-    let status = new Status({
+    let status = new PostObj({
       username: username,
       text: statusText, 
     })
@@ -52,7 +52,7 @@ export const Profile = ({ userData, handleSignOut, match }) => {
   const fetchData = async () => {
     setLoading(true)
     if (isLocal()) {
-      const _statuses = await Status.fetchOwnList();
+      const _statuses = await PostObj.fetchOwnList();
       
       setStatusIndex(_statuses.length);
       setStatuses(_statuses);
@@ -64,7 +64,7 @@ export const Profile = ({ userData, handleSignOut, match }) => {
         setPerson(new Person(newProfile));
         setUsername(username);
 
-        const _statuses = await Status.fetchList({username: username});
+        const _statuses = await PostObj.fetchList({username: username});
         setStatusIndex(_statuses.length);
         setStatuses(_statuses);
         setLoading(false);

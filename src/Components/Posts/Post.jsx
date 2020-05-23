@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import './Post.css'
 
 export default class Post extends React.Component {
-    // TODO: Route to the post by clicking on this component
     render() {
         return(
             <div className={"postPreview"}>
@@ -13,6 +12,7 @@ export default class Post extends React.Component {
                 </Link>
                 <div className="tagline">{this.props.tagline}</div>
                 <div className="previewContainer">
+                    <div className="date">{(new Date(this.props.createdAt).toLocaleString())}</div>
                     <div className="text">{this.props.text}</div>
                     <div className="previewText"/>
                 </div>

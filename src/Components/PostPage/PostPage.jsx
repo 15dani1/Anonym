@@ -14,7 +14,8 @@ export default class PostPage extends React.Component {
             isLoading: true,
             title: null,
             tagline: null,
-            text: null
+            text: null,
+            date: null
         }
 
         this.fetchPost = async () => {
@@ -28,7 +29,8 @@ export default class PostPage extends React.Component {
                 isLoading: true,
                 title: post.attrs.title,
                 tagline: post.attrs.tagline,
-                text: postFile
+                text: post.attrs.excerpt,
+                date: (new Date(post.attrs.createdAt)).toLocaleString(),
             })
         }
     }
@@ -39,6 +41,7 @@ export default class PostPage extends React.Component {
                 <div className="websiteNameSmall">Website Name</div>
                 <div className="title">{this.state.title}</div>
                 <div className="tagline">{this.state.tagline}</div>
+                <div className="date">{this.state.date}</div>
                 <div className="postText">
                     <ReactMarkdown source={this.state.text} />
                 </div>

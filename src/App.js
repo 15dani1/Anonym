@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Profile from './Profile.js';
+import Profile from './Components/Profile.js';
 import Signin from './Signin.js';
 import { UserSession, AppConfig } from 'blockstack';
 import { Connect } from '@blockstack/connect';

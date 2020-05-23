@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio, Input, Layout, Space, Button } from 'antd'
+import { Radio, Input, Layout, Space, Button, message } from 'antd'
 import ReactMarkdown from 'react-markdown';
 import { FormOutlined, EditOutlined } from '@ant-design/icons'
 import { useConnect } from '@blockstack/connect';
@@ -11,6 +11,7 @@ import PostObj from "../../models/Post"
 const CreatePost = (props) => {
     const [previewMd, setPreviewMd] = useState(false);
     const [postTitle, setPostTitle] = useState("");
+    const [postTagline, setPostTagline] = useState("");
     const [postDescription, setPostDescription] = useState("");
     const [isPosted, setIsPosted] = useState(false);
 
@@ -27,15 +28,17 @@ const CreatePost = (props) => {
         let post = new PostObj({
             username: props.userData.username,
             title: postTitle,
-            tagline: "THIS IS A TAGLINE",
-            excerpt: "Lorum Ipsum Facto",
+            tagline: postTagline,
+            excerpt: postDescription,
             fileId: fileId
           })
       
           await post.save();
           await userSession.putFile(fileId, postDescription, {encrypt:false})
 
-          setIsPosted(true);
+        //   setIsPosted(true);
+        message.success("Post submitted!")
+
     }
 
     return (
@@ -48,7 +51,8 @@ const CreatePost = (props) => {
                 </Header>
             <Content style={{'margin': 'auto'}}>
                 <Space direction="vertical" size="large">
-                    <Input size="large" placeholder="Post Title" prefix={<FormOutlined/>} style={{width: 400}} onChange={e => setPostTitle(e.target.value)}/>
+                    <Input size="large" placeholder="Title" prefix={<FormOutlined/>} style={{width: 400}} onChange={e => setPostTitle(e.target.value)}/>
+                    <Input size="medium" placeholder="Tagline" prefix={<FormOutlined/>} style={{width: 600}} onChange={e => setPostTagline(e.target.value)}/>
                     <Radio.Group defaultValue="Markdown" buttonStyle="solid">
                         <Radio.Button onChange={() => setPreviewMd(false)} value="Markdown">Markdown</Radio.Button>
                         <Radio.Button onChange={() => setPreviewMd(true)} value="Render">Render</Radio.Button>
@@ -61,7 +65,7 @@ const CreatePost = (props) => {
                     autoSize={{ minRows: 10, maxRows: 30 }}
                     />}
                     <Button size="large" onClick={submitPost}>Submit</Button>
-                    {isPosted && <span style={{'color': 'green'}}>Successfully posted!</span>}
+                    {/* {isPosted && <span style={{'color': 'green'}}>Successfully posted!</span>} */}
                 </Space>
             </Content>
             </Layout>

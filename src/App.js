@@ -4,12 +4,14 @@ import Signin from './Signin.js';
 import { UserSession, AppConfig } from 'blockstack';
 import { Connect } from '@blockstack/connect';
 import { SearchInput } from 'evergreen-ui'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Router, Route } from 'react-router-dom'
 import {User, configure } from 'radiks'
 import Post from "./Components/Posts/Post";
 import CreatePost from "./Components/CreatePost/CreatePost";
 import Home from "./Components/Home"
 import PostPage from "./Components/PostPage/PostPage";
+import SimpleWallet from "simple-bitcoin-wallet";
+
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })

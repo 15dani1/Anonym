@@ -7,6 +7,7 @@ import {
 } from 'blockstack';
 import { Connect } from '@blockstack/connect';
 import { Switch, Route } from 'react-router-dom'
+import Post from "./Components/Posts/Post";
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })

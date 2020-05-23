@@ -5,6 +5,8 @@ import {
 } from 'blockstack';
 import { useConnect } from '@blockstack/connect';
 
+import { toaster } from 'evergreen-ui'
+
 const avatarFallbackImage = 'https://s3.amazonaws.com/onename/avatar-placeholder.png';
 
 export const Profile = ({ userData, handleSignOut, match }) => {
@@ -28,6 +30,7 @@ export const Profile = ({ userData, handleSignOut, match }) => {
 
   const handleNewStatusSubmit = async (event) => {
     await saveNewStatus(newStatus);
+    toaster.notify("New status submitted!")
     setNewStatus("")
   }
 

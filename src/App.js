@@ -47,7 +47,6 @@ export default class App extends Component {
       <Connect authOptions={authOptions}>
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
-            <Home/>
             <Switch>
               <Route path='/create' render={
                 routeProps => !userData ? <Signin /> : <Profile
@@ -65,12 +64,7 @@ export default class App extends Component {
                 <div>Testing</div>
               </Route>
               <Route path="/">
-                <div>
-                <SearchInput height={40} placeholder="Filter traits..." />
-                <Post postTitle="Test" tagline="Here, you can write your tagline" text="here is a bunch of random sample texts haha yup yessir is this long enough yet. Nope I don't think so. we'll just keep typing then in this box haha. We'll get a third line on here as well. Is this good?"/>
-                <Post postTitle="Test" tagline="Here, you can write your tagline" text="here is a bunch of random sample texts haha yup yessir is this long enough yet. Nope I don't think so. we'll just keep typing then in this box haha. We'll get a third line on here as well. Is this good?"/>
-                <Post postTitle="Test" tagline="Here, you can write your tagline" text="here is a bunch of random sample texts haha yup yessir is this long enough yet. Nope I don't think so. we'll just keep typing then in this box haha. We'll get a third line on here as well. Is this good?"/>
-                </div>
+                <Home/>
               </Route>
             </Switch>
             {/* { !userData ? <Signin /> : <Switch>

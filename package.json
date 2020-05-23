@@ -18,6 +18,10 @@
   "dependencies": {
     "@blockstack/connect": "^2.7.2",
     "blockstack": "^19.2.5",
+<<<<<<< HEAD
+=======
+    "evergreen-ui": "^4.27.4",
+>>>>>>> c52d9e05a6ba41c28e1e7b3d60ae85bc6e57ab28
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^4.3.1",

@@ -6,19 +6,19 @@ import {
   AppConfig
 } from 'blockstack';
 import { Connect } from '@blockstack/connect';
+import { Switch, Route } from 'react-router-dom'
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
 
 export default class App extends Component {
+  state = {
+    userData: null,
+  }
 
   constructor(props) {
     super(props);
     this.handleSignOut = this.handleSignOut.bind(this);
-  }
-  
-  state = {
-    userData: null,
   }
 
   handleSignOut(e) {
@@ -43,7 +43,14 @@ export default class App extends Component {
       <Connect authOptions={authOptions}>
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
-            { !userData ? <Signin /> : <Profile userData={userData} handleSignOut={ this.handleSignOut } /> }
+            { !userData ? <Signin /> : <Switch>
+                                        <Route path='/:username?' render={
+                                          routeProps => <Profile
+                                                          userData={userData}
+                                                          handleSignOut={this.handleSignOut}
+                                                          {...routeProps} />
+                                          }/>
+                                      </Switch> }
           </div>
         </div>
       </Connect>

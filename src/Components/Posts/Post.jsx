@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import './Post.css'
 
 export default class Post extends React.Component {
-    // TODO: Route to the post by clicking on this component
     render() {
         return(
             <div className={"postPreview"}>

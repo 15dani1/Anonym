@@ -87,31 +87,31 @@ export const Profile = ({ userData, handleSignOut, match }) => {
         <div className="col-md-offset-3 col-md-6">
           <div className="col-md-12">
             <div className="avatar-section">
-              <img src={ person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage } className="img-rounded avatar" id="avatar-image" alt=""/>
+              {/*<img src={ person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage } className="img-rounded avatar" id="avatar-image" alt=""/>*/}
               <div className="username">
-                <h1><span id="heading-name">{ person.name() ? person.name() : 'Nameless Person' }</span></h1>
+                {/*<h1><span id="heading-name">{ person.name() ? person.name() : 'Nameless Person' }</span></h1>*/}
                 <span>{ username }</span>
                 { isLocal() &&
                 <span>&nbsp;|&nbsp;<a onClick={ handleSignOut.bind(this)}>(Logout)</a></span> }
               </div>
             </div>
           </div>
-            {isLocal() &&
-              <div className="new-status">
-                <div className="col-md-12">
-                  <textarea className="input-status" value={newStatus} onChange={handleNewStatus} placeholder="Enter a status"/>
-                </div>
-                <div className="col-md-12">
-                  <button className="btn btn-primary btn-lg" onClick={handleNewStatusSubmit}>Submit</button>
-                </div>
-              </div>
-            }
-          <div className="col-md-12 statuses">
-              {isLoading && <span>Loading...</span>}
-              {statuses.map((status) => (
-                <div className="status" key="status.id">{status.text}</div>
-              ))}
-            </div>
+          {/*  {isLocal() &&*/}
+          {/*    <div className="new-status">*/}
+          {/*      <div className="col-md-12">*/}
+          {/*        <textarea className="input-status" value={newStatus} onChange={handleNewStatus} placeholder="Enter a status"/>*/}
+          {/*      </div>*/}
+          {/*      <div className="col-md-12">*/}
+          {/*        <button className="btn btn-primary btn-lg" onClick={handleNewStatusSubmit}>Submit</button>*/}
+          {/*      </div>*/}
+          {/*    </div>*/}
+          {/*  }*/}
+          {/*<div className="col-md-12 statuses">*/}
+          {/*    {isLoading && <span>Loading...</span>}*/}
+          {/*    {statuses.map((status) => (*/}
+          {/*      <div className="status" key="status.id">{status.text}</div>*/}
+          {/*    ))}*/}
+          {/*  </div>*/}
         </div>
       </div>
     </div>

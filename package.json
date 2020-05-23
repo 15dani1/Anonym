@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "@blockstack/connect": "^2.7.2",
+    "antd": "^4.2.4",
     "blockstack": "^19.2.5",
     "evergreen-ui": "^4.27.4",
     "react": "^16.8.6",

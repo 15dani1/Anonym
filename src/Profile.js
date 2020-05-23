@@ -4,6 +4,7 @@ import {
   lookupProfile
 } from 'blockstack';
 import { useConnect } from '@blockstack/connect';
+import PostObj from './models/Post'
 
 import { toaster } from 'evergreen-ui'
 
@@ -36,15 +37,14 @@ export const Profile = ({ userData, handleSignOut, match }) => {
 
   const saveNewStatus = async (statusText) => {
     const _statuses = statuses
-    let status = {
-      id: statusIndex + 1,
-      text: statusText.trim(),
-      created_at: Date.now()
-    }
+
+    let status = new PostObj({
+      username: username,
+      text: statusText, 
+    })
 
     _statuses.unshift(status)
-    const options = { encrypt: false };
-    await userSession.putFile('statuses.json', JSON.stringify(_statuses), options);
+    await status.save();
     setStatuses(_statuses);
     setStatusIndex(statusIndex + 1);
   }
@@ -52,9 +52,8 @@ export const Profile = ({ userData, handleSignOut, match }) => {
   const fetchData = async () => {
     setLoading(true)
     if (isLocal()) {
-      const options = {decrypt: false}
-      const file = await userSession.getFile('statuses.json', options)
-      const _statuses = JSON.parse(file || '[]')
+      const _statuses = await PostObj.fetchOwnList();
+      
       setStatusIndex(_statuses.length);
       setStatuses(_statuses);
       setLoading(false);
@@ -65,9 +64,7 @@ export const Profile = ({ userData, handleSignOut, match }) => {
         setPerson(new Person(newProfile));
         setUsername(username);
 
-        const options = { username: username, decrypt: false }
-        const file = await userSession.getFile('statuses.json', options)
-        const _statuses = JSON.parse(file || '[]')
+        const _statuses = await PostObj.fetchList({username: username});
         setStatusIndex(_statuses.length);
         setStatuses(_statuses);
         setLoading(false);
@@ -96,22 +93,22 @@ export const Profile = ({ userData, handleSignOut, match }) => {
               </div>
             </div>
           </div>
-          {/*  {isLocal() &&*/}
-          {/*    <div className="new-status">*/}
-          {/*      <div className="col-md-12">*/}
-          {/*        <textarea className="input-status" value={newStatus} onChange={handleNewStatus} placeholder="Enter a status"/>*/}
-          {/*      </div>*/}
-          {/*      <div className="col-md-12">*/}
-          {/*        <button className="btn btn-primary btn-lg" onClick={handleNewStatusSubmit}>Submit</button>*/}
-          {/*      </div>*/}
-          {/*    </div>*/}
-          {/*  }*/}
-          {/*<div className="col-md-12 statuses">*/}
-          {/*    {isLoading && <span>Loading...</span>}*/}
-          {/*    {statuses.map((status) => (*/}
-          {/*      <div className="status" key="status.id">{status.text}</div>*/}
-          {/*    ))}*/}
-          {/*  </div>*/}
+            {isLocal() &&
+              <div className="new-status">
+                <div className="col-md-12">
+                  <textarea className="input-status" value={newStatus} onChange={handleNewStatus} placeholder="Enter a status"/>
+                </div>
+                <div className="col-md-12">
+                  <button className="btn btn-primary btn-lg" onClick={handleNewStatusSubmit}>Submit</button>
+                </div>
+              </div>
+            }
+          <div className="col-md-12 statuses">
+              {isLoading && <span>Loading...</span>}
+              {statuses.map((status) => (
+                <div className="status">{status.attrs.text}</div>
+              ))}
+            </div>
         </div>
       </div>
     </div>

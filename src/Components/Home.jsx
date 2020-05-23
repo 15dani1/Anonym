@@ -30,7 +30,7 @@ export default class Home extends React.Component {
                     <div className="hottest">HOTTEST POSTS</div>
                     {this.state.isLoading && <span>Loading...</span>}
                     {this.state.posts.map((post) => (
-                        <Post postId={'/' + post._id} postTitle={post.attrs.text} tagline="Here, you can write your tagline" text="here is a bunch of random sample texts haha yup yessir is this long enough yet. Nope I don't think so. we'll just keep typing then in this box haha. We'll get a third line on here as well. Is this good?"/>
+                        <Post postId={'/' + post._id} postTitle={post.attrs.title} tagline={post.attrs.tagline} text={post.attrs.excerpt}/>
                     ))}
                 </div>
             </div>

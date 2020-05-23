@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import Profile from './Profile.js';
 import Signin from './Signin.js';
-import {
-  UserSession,
-  AppConfig
-} from 'blockstack';
+import { UserSession, AppConfig } from 'blockstack';
 import { Connect } from '@blockstack/connect';
 import { SearchInput } from 'evergreen-ui'
 import { Switch, Route } from 'react-router-dom'
+import {User, configure } from 'radiks'
 import Post from "./Components/Posts/Post";
 import CreatePost from "./Components/CreatePost/CreatePost";
 import Home from "./Components/Home"
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
+
+configure({ apiServer: "http://localhost:1260", userSession})
 
 export default class App extends Component {
   state = {
@@ -41,23 +41,16 @@ export default class App extends Component {
       userSession,
       finished: ({ userSession }) => {
         this.setState({ userData: userSession.loadUserData() });
+        console.log("Creating Radiks User")
+        User.createWithCurrentUser();
       }
     }
+
     return (
       
       <Connect authOptions={authOptions}>
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
-            <div className="profile">
-            { !userData ? <Signin /> : <Switch>
-              <Route path='/:username?' render={
-                routeProps => <Profile
-                    userData={userData}
-                    handleSignOut={this.handleSignOut}
-                    {...routeProps} />
-                }/>
-                </Switch> }
-            </div>
             <Switch>
               <Route path='/create' render={
                 routeProps => !userData ? <Signin /> : <CreatePost
@@ -85,10 +78,13 @@ export default class App extends Component {
   }
 
   componentDidMount() {
+    console.log("Component Mounted");
     if (userSession.isSignInPending()) {
+      console.log("Signing pending")
       userSession.handlePendingSignIn().then((userData) => {
         window.history.replaceState({}, document.title, "/")
         this.setState({ userData: userData})
+        console.log("Hellop")
       });
     } else if (userSession.isUserSignedIn()) {
       this.setState({ userData: userSession.loadUserData() });

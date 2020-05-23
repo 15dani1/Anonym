@@ -21,6 +21,7 @@
     "antd": "^4.2.4",
     "blockstack": "^19.2.5",
     "evergreen-ui": "^4.27.4",
+    "radiks": "^0.2.2-beta.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^4.3.1",

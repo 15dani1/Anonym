@@ -33,3 +33,9 @@ body{color:#3700FF;text-align:center;}
  /* Statuses */
  .statuses{padding-top:30px;}
  .status{margin:15px 0px;padding:20px;background-color:#2e2e2e;border-radius:6px}
+
+ .profile {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+ }

@@ -13,6 +13,11 @@ export default class Wallet extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state.wallet = props.wallet;
+        if (props.wallet !== null) {
+            this.getBalance();
+        }
+
         this.createWallet = this.createWallet.bind(this);
         this.loadWallet = this.loadWallet.bind(this);
     }

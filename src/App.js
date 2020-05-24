@@ -87,7 +87,7 @@ export default class App extends Component {
             </div>
             <div className="wallet-modal-button">
               <Button onClick={this.showModal}>
-                Open Modal
+                My Wallet
               </Button>
             </div>
             <Modal

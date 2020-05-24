@@ -13,6 +13,7 @@ import PostPage from "./Components/PostPage/PostPage";
 import { Modal, Button, Tooltip } from 'antd';
 import { WalletOutlined } from '@ant-design/icons'
 import Wallet from './Components/Wallet/Wallet'
+import PostObj from "./models/Post";
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
@@ -31,6 +32,11 @@ export default class App extends Component {
     this.handleSignOut = this.handleSignOut.bind(this);
     this.setWallet = this.setWallet.bind(this);
   }
+
+  fetchData = async () => {
+    const _posts = await PostObj.fetchOwnList();
+    _posts.forEach((post) => post.contestations)
+  };
 
   handleSignOut(e) {
     e.preventDefault();
@@ -74,7 +80,7 @@ export default class App extends Component {
       userSession,
       finished: ({ userSession }) => {
         this.setState({ userData: userSession.loadUserData() });
-        console.log("Creating Radiks User")
+        console.log("Creating Radiks User");
         User.createWithCurrentUser();
       }
     }
@@ -150,6 +156,7 @@ export default class App extends Component {
       });
     } else if (userSession.isUserSignedIn()) {
       this.setState({ userData: userSession.loadUserData() });
+      this.fetchData();
     }
   }
 }

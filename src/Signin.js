@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { useConnect } from '@blockstack/connect';
-import { Button } from 'antd';
+import { Button, Empty } from 'antd';
+import Logo from "./assets/Hat.jpg"
 import 'antd/dist/antd.css'
 
 export const Signin = () => {
@@ -8,6 +9,9 @@ export const Signin = () => {
 
   return (
     <div className="panel-landing" id="section-1">
+      <div className="websiteName">Anonym</div>
+      <img src={Logo} alt="Logo" />
+      
       <p className="lead">
         {/*<button*/}
         {/*  className="btn btn-primary btn-sm"*/}

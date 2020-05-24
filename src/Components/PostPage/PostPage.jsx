@@ -5,7 +5,8 @@ import { FormOutlined } from '@ant-design/icons'
 import './PostPage.css'
 import PostObj from "../../models/Post"
 import { getConfig } from 'radiks'
-import { PageHeader, Divider, Comment, Avatar } from 'antd'
+import { PageHeader, Divider, Comment, Avatar, Tooltip, Affix } from 'antd'
+import { Switch, Link, Route, withRouter } from 'react-router-dom'
 import { UserOutlined } from '@ant-design/icons'
 
 import 'antd/dist/antd.css'
@@ -77,8 +78,12 @@ export default class PostPage extends React.Component {
     render() {
         return (
             <div className="wrapper">
-                <PageHeader onBack={() => {this.props.history.goBack()}} title={<div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div>}/>
-                
+                <Affix offsetTop={5}><PageHeader onBack={() => {this.props.history.goBack()}} title={<Link to="/"><div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div></Link>}
+                extra={[
+                    <Link to="/create" ><Button shape="round">Create New Post</Button></Link>,
+                    <Button shape="round" onClick={this.props.showModal}>Wallet</Button>,
+                    <Tooltip title={!this.props.userData ? "Not currently logged in" : this.props.userData.username}><Link to="/profile" ><Button shape="round">Profile</Button></Link></Tooltip>,
+                ]}/></Affix>
                 {this.state.post === PostObj.STATE_REMOVED ?
                     <div className="title">This Post Has Been Removed</div>
                   : <div>

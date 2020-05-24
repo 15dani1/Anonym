@@ -7,11 +7,11 @@ import Post from "./Posts/Post"
 import PostObj from '../models/Post'
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css'
-import { Button, Typography, PageHeader } from 'antd'
+import { Button, Typography, PageHeader, Tooltip, Affix } from 'antd'
 
 const avatarFallbackImage = 'https://s3.amazonaws.com/onename/avatar-placeholder.png';
 
-export const Profile = ({ userData, handleSignOut, history }) => {
+export const Profile = ({ userData, handleSignOut, history, showModal }) => {
   const [isLoading, setLoading] = React.useState(false);
   const [username, setUsername] = React.useState(userData.username);
   const [person, setPerson] = React.useState(new Person(userData.profile));
@@ -34,7 +34,13 @@ export const Profile = ({ userData, handleSignOut, history }) => {
 
   return (
     <div style={{height: '100%'}}>
-    <PageHeader onBack={() => {history.goBack()}} title={<div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div>}/>
+      <Affix offsetTop={5}>
+      <PageHeader onBack={() => {history.goBack()}} title={<Link to="/"><div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div></Link>}
+                extra={[
+                    <Link to="/create" ><Button shape="round">Create New Post</Button></Link>,
+                    <Button shape="round" onClick={showModal}>Wallet</Button>,
+                    <Tooltip title={!userData ? "Not currently logged in" : userData.username}><Link to="/profile" ><Button shape="round">Profile</Button></Link></Tooltip>,
+                ]}/></Affix>
     <div className="container-fluid" style={{height: '100%', margin: 'auto', width: '80%'}}>
       <br/>
       <div className="row">

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Radio, Input, Layout, Space, Button, message, PageHeader } from 'antd'
+import { Radio, Input, Layout, Space, Button, message, PageHeader, Tooltip, Affix } from 'antd'
 import ReactMarkdown from 'react-markdown';
-import { FormOutlined, EditOutlined } from '@ant-design/icons'
+import { FormOutlined, EditOutlined, UserOutlined } from '@ant-design/icons'
+import { Switch, Link, Route, withRouter } from 'react-router-dom'
 import { useConnect } from '@blockstack/connect';
 
 import 'antd/dist/antd.css'
@@ -45,7 +46,14 @@ const CreatePost = (props) => {
 
     return (
         <div className="wrapper">
-            <PageHeader onBack={() => {props.history.goBack()}} title={<div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div>}/>
+            <Affix offsetTop={5}><PageHeader onBack={() => {props.history.goBack()}} title={<Link to="/"><div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div></Link>}
+                extra={[
+                    <Link to="/create" ><Button shape="round">Create New Post</Button></Link>,
+                    <Button shape="round" onClick={props.showModal}>Wallet</Button>,
+          <Tooltip title={!props.userData ? "Not currently logged in" : props.userData.username}>
+          <Link to="/profile" ><Button shape="round">Profile</Button></Link></Tooltip>,
+                ]}/>
+                </Affix>
         <div style={{width: '100%', height: '100%'}}>
             <Layout className="feed" hasSider={false} style={{
                 'margin': 'auto',

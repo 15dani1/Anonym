@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Input, message } from 'antd'
+import { Button, Input, message, Slider } from 'antd'
 import { FormOutlined } from '@ant-design/icons'
+import axios from 'axios'
 
 import 'antd/dist/antd.css'
 import Contestation from '../models/Contestation';
@@ -8,11 +9,14 @@ import Contestation from '../models/Contestation';
 export default class ContestationModal extends React.Component {
     state = {
         hasContested: true,
+        bitcoinToUsd: 9093,
+        contestationAmount: 0
     }
 
     constructor(props) {
         super(props);
         this.createContestation = this.createContestation.bind(this);
+        axios.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,&tsyms=USD').then(res => {console.log(res.data); this.setState({bitcoinToUsd: res.data.BTC.USD});})
     }
 
     render() {
@@ -20,16 +24,18 @@ export default class ContestationModal extends React.Component {
             <div>
                 <div className="row">
                     <div className="col-md-12">
-                        This Post is being contested
+                        This post is being contested. 
                     </div>
                 </div>
                 { !this.state.hasContested 
                     ? <div>
                         <div className="row">
                             <div className="col-md-12">
-                                <Input size="large" placeholder="Amount" prefix={<FormOutlined/>} onChange={e => this.setState({contestationAmount: e.target.value})} />
+                                <Slider dots defaultValue={0} tipFormatter={value => <div>{value} Satoshis </div>} max={120000} step={100} onChange={(value) => this.setState({contestationAmount: value})}/>
+                                <Input disabled size="large" value={Math.round(this.state.contestationAmount*this.state.bitcoinToUsd/1000000)/100} addonBefore='$' onChange={e => this.setState({contestationAmount: e.target.value})} />
                             </div>
                         </div>
+                        <br/>
                         <div className="row">
                             <div className="col-md-6">
                                 <Button size="large" className="btn-success" onClick={() => this.createContestation(Contestation.DIRECTION_KEEP)}>Keep Up</Button>

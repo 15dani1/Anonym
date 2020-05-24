@@ -165,6 +165,10 @@ export default class PostPage extends React.Component {
     }
 
     async submitComment() {
+        if (!this.state.wallet) {
+            message.error("You need to create register a Bitcoin Cash Wallet to report posts");
+            return
+        }
         console.log("Saving Comment");
         let post = new PostObj({
             username: this.state.userData.username,

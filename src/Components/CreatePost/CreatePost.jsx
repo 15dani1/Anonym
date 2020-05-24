@@ -14,6 +14,7 @@ const CreatePost = (props) => {
     const [postTitle, setPostTitle] = useState("");
     const [postTagline, setPostTagline] = useState("");
     const [postDescription, setPostDescription] = useState("");
+    const [postExcerpt, setPostExcerpt] = useState("");
 
     const { Header, Content, Footer } = Layout;
     const { TextArea } = Input;
@@ -28,7 +29,7 @@ const CreatePost = (props) => {
             username: props.userData.username,
             title: postTitle,
             tagline: postTagline,
-            excerpt: postDescription,
+            excerpt: postExcerpt,
             fileId: fileId,
             author_wallet: props.wallet.cashAddress
           })
@@ -57,6 +58,7 @@ const CreatePost = (props) => {
                 <Space direction="vertical" size="large">
                     <Input size="large" placeholder="Title" prefix={<FormOutlined/>} style={{width: 400}} onChange={e => setPostTitle(e.target.value)}/>
                     <Input size="medium" placeholder="Tagline" prefix={<FormOutlined/>} style={{width: 600}} onChange={e => setPostTagline(e.target.value)}/>
+                    <Input size="medium" placeholder="Excerpt" prefix={<FormOutlined/>} style={{width: 600}} onChange={e => setPostExcerpt(e.target.value)}/>
                     <Radio.Group defaultValue="Markdown" buttonStyle="solid">
                         <Radio.Button onChange={() => setPreviewMd(false)} value="Markdown">Markdown</Radio.Button>
                         <Radio.Button onChange={() => setPreviewMd(true)} value="Render">Render</Radio.Button>

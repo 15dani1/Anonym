@@ -34,6 +34,9 @@ export const Profile = ({ userData, handleSignOut}) => {
 
   return (
     <div className="container-fluid">
+      <br/>
+      <br/>
+      <br/>
       <div className="row">
         <div className="col-md-offset-3 col-md-6">
           <div className="col-md-12">

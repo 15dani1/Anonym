@@ -42,11 +42,9 @@ const CreatePost = (props) => {
     }
 
     return (
-        <div>
         <div className="wrapper">
             <PageHeader onBack={() => {props.history.goBack()}} title={<div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div>}/>
-        </div>
-        <div style={{width: '100%', height: '100%', paddingTop: "60px"}}>
+        <div style={{width: '100%', height: '100%'}}>
             <Layout className="feed" hasSider={false} style={{
                 'margin': 'auto',
                 'background-color': "white"}}>

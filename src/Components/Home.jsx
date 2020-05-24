@@ -14,7 +14,7 @@ export default class Home extends React.Component {
         this.state = { isLoading: true, posts: [] }
 
         this.fetchData = async () => {
-            const _posts = await PostObj.fetchList();
+            const _posts = await PostObj.fetchList({objType: PostObj.TYPE_POST});
             this.setState({
                 isLoading: false,
                 posts: _posts,

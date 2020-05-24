@@ -126,12 +126,14 @@ export default class App extends Component {
               }/>
               <Route path='/profile' render={
                 routeProps => !userData ? <Signin /> : <Profile
-                                userData={userData}
+                                userData={this.state.userData}
                                 handleSignOut={this.handleSignOut}
                                 {...routeProps} />
               }/>
               <Route path="/:postId" render={
-                props => <PostPage wallet={this.state.wallet} {...props} />
+                props => <PostPage wallet={this.state.wallet} 
+                                  userData={this.state.userData} 
+                                  {...props} />
               }/>
               <Route path="/">
                 <Home />

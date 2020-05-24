@@ -14,7 +14,6 @@ const CreatePost = (props) => {
     const [postTitle, setPostTitle] = useState("");
     const [postTagline, setPostTagline] = useState("");
     const [postDescription, setPostDescription] = useState("");
-    const [isVisible, setIsVisible] = useState(false);
 
     const { Header, Content, Footer } = Layout;
     const { TextArea } = Input;
@@ -44,34 +43,6 @@ const CreatePost = (props) => {
         props.showModal();
     }
 
-    // const handleOk = e => {
-    //     console.log(e);
-    //     if (wallet === null) {
-    //         message.error("You must add your wallet to create a post");
-    //     } else {
-    //         setIsVisible(false);
-    //     }
-    //   };
-    
-    // const handleCancel = e => {
-    //     console.log(e);
-    //     if (wallet === null) {
-    //         message.error("You must add your wallet to create a post");
-    //     } else {
-    //         setIsVisible(false);
-    //     }
-    //   }; 
-
-    // const setWallet = w => {
-    //     wallet = w;
-    //     setIsVisible(wallet === null);
-    // }
-
-    // var wallet = props.wallet;
-    // if (wallet === null && !isVisible) {
-    //     setIsVisible(true);
-    // }
-    
     return (
         <div className="wrapper">
             <PageHeader onBack={() => {props.history.goBack()}} title={<div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div>}/>

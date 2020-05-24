@@ -19,24 +19,31 @@ export default class PostPage extends React.Component {
 
         this.beginContestation = this.beginContestation.bind(this);
         this.createContestation = this.createContestation.bind(this);
+        this.submitComment = this.submitComment.bind(this);
+
+        console.log(props.userData);
+        const { userSession } = getConfig();
+        const userData = userSession.loadUserData();
 
         this.state = {
+            userData: userData,
             isLoading: true,
             hasContested: false,
+            comments: [],
             post: null,
             text: null,
             title: null,
             date: null,
             tagline: null,
             animals: ["alligator", "anteater", "armadillo", "auroch", "axolotl", "badger", "bat", "bear", "beaver", "blobfish", "buffalo", "camel", "chameleon", "cheetah", "chipmunk", "chinchilla", "chupacabra", "cormorant", "coyote", "crow", "dingo", "dinosaur", "dog", "dolphin", "dragon", "duck", "octopus", "elephant", "ferret", "fox", "frog", "giraffe", "goose", "gopher", "grizzly", "hamster", "hedgehog", "hippo", "hyena", "jackal", "jackalope", "ibex", "ifrit", "iguana", "kangaroo", "kiwi", "koala", "kraken", "lemur", "leopard", "liger", "lion", "llama", "manatee", "mink", "monkey", "moose", "narwhal", "nyan cat", "orangutan", "otter", "panda", "penguin", "platypus", "python", "pumpkin", "quagga", "quokka", "rabbit", "raccoon", "rhino", "sheep", "shrew", "skunk", "squirrel", "tiger", "turtle", "unicorn", "walrus", "wolf", "wolverine", "wombat"],
-            wallet: props.wallet
+            wallet: props.wallet,
+            currentComment: null
         }
 
         this.fetchPost = async () => {
             const post = await PostObj.findById(postId);
             console.log(post.attrs.state);
             //TODO: Null check post
-            const { userSession } = getConfig()
             const postFile = await userSession.getFile(post.attrs.fileId, { decrypt: false});
 
             this.setState({
@@ -50,6 +57,21 @@ export default class PostPage extends React.Component {
 
             const contestations = await Contestation.fetchOwnList({post_id: post._id});
             this.setState({hasContested: contestations.length !== 0})
+
+            this.fetchComments();
+        }
+
+        this.fetchComments = async () => {
+            if (this.state.post === null) return;
+
+            const _comments = await PostObj.fetchList({
+                objType: PostObj.TYPE_COMMENT, 
+                post_id: this.state.post._id
+            })
+
+            this.setState({
+                comments: _comments
+            })
         }
     }
 
@@ -110,33 +132,55 @@ export default class PostPage extends React.Component {
                     </div>
                 }
                 <Divider orientation="left">Comments</Divider>
-                <Comment 
-                    avatar={<Avatar style={{backgroundColor: "#"+((1<<24)*Math.random()|0).toString(16), verticalAlign: 'middle'}} icon={<UserOutlined/>}/>}
-                    author={"Anonymous " + this.state.animals[Math.floor(Math.random() * this.state.animals.length)]}
-                    content={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}                        
-                    datetime={(new Date()).toUTCString()}/>
-                <Comment 
-                    avatar={<Avatar style={{backgroundColor: "#"+((1<<24)*Math.random()|0).toString(16), verticalAlign: 'middle'}} icon={<UserOutlined/>}/>}
-                    author={"Anonymous " + this.state.animals[Math.floor(Math.random() * this.state.animals.length)]}
-                    content={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}                        
-                    datetime={(new Date()).toUTCString()}/>
-                <Comment 
-                    avatar={<Avatar style={{backgroundColor: "#"+((1<<24)*Math.random()|0).toString(16), verticalAlign: 'middle'}} icon={<UserOutlined/>}/>}
-                    author={"Anonymous " + this.state.animals[Math.floor(Math.random() * this.state.animals.length)]}
-                    content={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}                        
-                    datetime={(new Date()).toUTCString()}/>
-                <Comment 
-                    avatar={<Avatar style={{backgroundColor: "#"+((1<<24)*Math.random()|0).toString(16), verticalAlign: 'middle'}} icon={<UserOutlined/>}/>}
-                    author={"Anonymous " + this.state.animals[Math.floor(Math.random() * this.state.animals.length)]}
-                    content={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}                        
-                    datetime={(new Date()).toUTCString()}/>
+                    {this.state.comments ? this.state.comments.map((comment) => (
+                        <Comment 
+                        avatar={<Avatar style={{backgroundColor: "#"+((1<<24)*Math.random()|0).toString(16), verticalAlign: 'middle'}} icon={<UserOutlined/>}/>}
+                        author={"Anonymous " + this.state.animals[Math.floor(Math.random() * this.state.animals.length)]}
+                        content={comment.attrs.excerpt}                        
+                        datetime={(new Date(comment.attrs.createdAt)).toLocaleDateString()}/>
+                        ))
+                        : <div>No comments</div>
+                    }
+                    {this.state.userData &&
+                    <div>
+                        <Input
+                        value={this.state.currentComment}
+                        onChange={e => this.setState({currentComment: e.target.value})}
+                        placeholder="Enter Comment Here" style={{width: 800}}
+                        autoSize={{ minRows: 10, maxRows: 30 }}
+                        />
+                        <Button size="large" onClick={this.submitComment}>Comment</Button>
+                    </div>
+                    }
+                
             </div>
         )
     }
-    
 
     componentDidMount() {
         this.fetchPost();
+    }
+
+    async submitComment() {
+        console.log("Saving Comment");
+        let post = new PostObj({
+            username: this.state.userData.username,
+            title: "",
+            tagline: "",
+            excerpt: this.state.currentComment,
+            fileId: "",
+            author_wallet: this.state.wallet.cashAddress,
+            objType: PostObj.TYPE_COMMENT,
+            post_id: this.state.post._id
+          })
+      
+          await post.save();
+
+        const _comments = this.state.comments;
+        _comments.unshift(post);
+        this.setState({comments: _comments});
+
+        message.success("Post submitted!")
     }
 
     async beginContestation() {

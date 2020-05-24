@@ -8,6 +8,9 @@ class PostObj extends Model {
     static STATE_CONTESTED = 1;
     static STATE_REMOVED = 2;
 
+    static TYPE_POST = 0;
+    static TYPE_COMMENT = 1;
+
     static schema = {
         username: String,
         title: {
@@ -38,15 +41,26 @@ class PostObj extends Model {
         state: {
             type: Number,
             decrypted: true,
+            required: true
         },
         betDelta: {
             type: Number,
             decrypted: true,
+        },
+        objType: {
+            type: Number,
+            decrypted: true,
+            required: true
+        },
+        post_id: {
+            type: String,
+            decrypted: true
         }
     }
 
     static defaults = {
         state: this.STATE_UNCONTESTED,
+        objType: this.TYPE_POST,
         betDelta: 0
     }
 

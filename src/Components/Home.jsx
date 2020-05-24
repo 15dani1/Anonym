@@ -3,6 +3,8 @@ import './Home.css'
 import Post from "./Posts/Post";
 import {SearchInput} from "evergreen-ui";
 import PostObj from "../models/Post"
+import Wallet from "./Wallet/Wallet";
+import {Route} from "react-router";
 
 export default class Home extends React.Component {
     constructor(props) {

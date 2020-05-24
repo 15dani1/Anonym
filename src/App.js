@@ -4,14 +4,14 @@ import Signin from './Signin.js';
 import { UserSession, AppConfig } from 'blockstack';
 import { Connect } from '@blockstack/connect';
 import { SearchInput } from 'evergreen-ui'
-import { Switch, Router, Route } from 'react-router-dom'
+import { Switch, Link, Route } from 'react-router-dom'
 import {User, configure } from 'radiks'
 import Post from "./Components/Posts/Post";
 import CreatePost from "./Components/CreatePost/CreatePost";
 import Home from "./Components/Home"
 import PostPage from "./Components/PostPage/PostPage";
-import SimpleWallet from "simple-bitcoin-wallet";
-
+import { Modal, Button } from 'antd';
+import Wallet from './Components/Wallet/Wallet'
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
@@ -21,11 +21,14 @@ configure({ apiServer: "http://localhost:1260", userSession})
 export default class App extends Component {
   state = {
     userData: null,
+    visible: false,
+    wallet: null,
   }
 
   constructor(props) {
     super(props);
     this.handleSignOut = this.handleSignOut.bind(this);
+    this.setWallet = this.setWallet.bind(this);
   }
 
   handleSignOut(e) {
@@ -33,6 +36,30 @@ export default class App extends Component {
     this.setState({ userData: null });
     userSession.signUserOut(window.location.origin);
   }
+
+  setWallet(w) {
+    this.state.wallet = w;
+  }
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  handleOk = e => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  };
+
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  };
 
   render() {
     const { userData } = this.state;
@@ -54,6 +81,23 @@ export default class App extends Component {
       <Connect authOptions={authOptions}>
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
+            <div className="profile">
+              { !userData ? <Signin /> : <Link to='/profile' style={{color: 'blue'}}>{userData.username}</Link>
+                }
+            </div>
+            <div className="wallet-modal-button">
+              <Button onClick={this.showModal}>
+                Open Modal
+              </Button>
+            </div>
+            <Modal
+                title="Basic Modal"
+                visible={this.state.visible}
+                onOk={this.handleOk}
+                onCancel={this.handleCancel}
+            >
+              <Wallet setWallet={this.setWallet}/>
+            </Modal>
             <Switch>
               {/*<Route path='/firstPost'>*/}
               {/*  <PostPage title="This is The Post Title" tagline="Here is where the tagline appears" text='### This is a header\n\nAnd this is a paragraph' />*/}

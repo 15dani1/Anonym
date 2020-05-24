@@ -4,13 +4,14 @@ import Signin from './Signin.js';
 import { UserSession, AppConfig } from 'blockstack';
 import { Connect } from '@blockstack/connect';
 import { SearchInput } from 'evergreen-ui'
-import { Switch, Link, Route } from 'react-router-dom'
+import { Switch, Link, Route, withRouter } from 'react-router-dom'
 import {User, configure } from 'radiks'
 import Post from "./Components/Posts/Post";
 import CreatePost from "./Components/CreatePost/CreatePost";
 import Home from "./Components/Home"
 import PostPage from "./Components/PostPage/PostPage";
-import { Modal, Button } from 'antd';
+import { Modal, Button, Tooltip } from 'antd';
+import { WalletOutlined } from '@ant-design/icons'
 import Wallet from './Components/Wallet/Wallet'
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
@@ -81,14 +82,22 @@ export default class App extends Component {
       <Connect authOptions={authOptions}>
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
+          <Tooltip title={!userData ? "Loading..." : userData.username}>
             <div className="profile">
-              { !userData ? <Signin /> : <Link to='/profile' style={{color: 'blue'}}>{userData.username}</Link>
+              { !userData ? <Signin /> : 
+              
+               <Link to="/profile" ><Button type="primary" onClick={() =>{
+              }}      >Logged in</Button></Link>
                 }
             </div>
+            </Tooltip>
+
             <div className="wallet-modal-button">
-              <Button onClick={this.showModal}>
-                Open Modal
+              <Tooltip title="Wallet">
+              <Button onClick={this.showModal} size="large" style={{top: 0, right: '80px', bottom: 0}}>
+                <WalletOutlined/>
               </Button>
+              </Tooltip>
             </div>
             <Modal
                 title="Basic Modal"

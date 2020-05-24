@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import './PostPage.css'
 import PostObj from "../../models/Post"
 import { getConfig } from 'radiks'
+import { PageHeader } from 'antd'
 
 export default class PostPage extends React.Component {
     constructor(props) {
@@ -38,7 +39,8 @@ export default class PostPage extends React.Component {
     render() {
         return (
             <div className="wrapper">
-                <div className="websiteNameSmall">Website Name</div>
+                <PageHeader onBack={() => {this.props.history.goBack()}} title={<div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div>}/>
+                
                 <div className="title">{this.state.title}</div>
                 <div className="tagline">{this.state.tagline}</div>
                 <div className="date">{this.state.date}</div>
@@ -48,6 +50,7 @@ export default class PostPage extends React.Component {
             </div>
         )
     }
+    
 
     componentDidMount() {
         this.fetchPost();

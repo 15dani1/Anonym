@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio, Input, Layout, Space, Button, message } from 'antd'
+import { Radio, Input, Layout, Space, Button, message, PageHeader } from 'antd'
 import ReactMarkdown from 'react-markdown';
 import { FormOutlined, EditOutlined } from '@ant-design/icons'
 import { useConnect } from '@blockstack/connect';
@@ -42,6 +42,10 @@ const CreatePost = (props) => {
     }
 
     return (
+        <div>
+        <div className="wrapper">
+            <PageHeader onBack={() => {props.history.goBack()}} title={<div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div>}/>
+        </div>
         <div style={{width: '100%', height: '100%', paddingTop: "60px"}}>
             <Layout className="feed" hasSider={false} style={{
                 'margin': 'auto',
@@ -69,6 +73,7 @@ const CreatePost = (props) => {
                 </Space>
             </Content>
             </Layout>
+        </div>
         </div>
     )
 }

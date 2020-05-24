@@ -13,6 +13,8 @@ import { Modal, Button, Tooltip } from 'antd';
 import { WalletOutlined } from '@ant-design/icons'
 import SimpleWallet from "simple-bitcoin-wallet";
 import Wallet from './Components/Wallet/Wallet'
+import PostObj from "./models/Post";
+import Constentation from "./models/Contestation";
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
@@ -32,6 +34,48 @@ export default class App extends Component {
     this.setWallet = this.setWallet.bind(this);
   }
 
+  runModeration = async () => {
+    // Check Authored Posts
+    const _posts = await PostObj.fetchOwnList({state: PostObj.STATE_CONTESTED});
+    _posts.forEach((post) => {
+      if (Date.now() - post.attrs.updatedAt >= 86400000) {
+        var total = 0;
+        var against = 0;
+
+        post.contestations.forEach((c) => {
+          if (c.status === Constentation.STATUS_PENDING) {
+            total += c.amount;
+            if (c.direction === Constentation.DIRECTION_TAKE_DOWN) {
+              against += c.amount;
+            }
+          }
+        });
+
+        if (against < .66 * total) {
+          post.update({state: PostObj.STATE_UNCONTESTED});
+          post.save();
+        } else {
+          post.update({state: PostObj.STATE_REMOVED});
+          post.save()
+        }
+      }
+    });
+
+    // Check Constentations
+    const _constentations = await Constentation.fetchOwnList({ status: Constentation.STATUS_PENDING});
+    var receivers = [];
+    _constentations.forEach((c) => {
+      if (c.status === Constentation.STATUS_PENDING && c.post.state === PostObj.STATE_UNCONTESTED) {
+        receivers.push({address: c.post.author_wallet, amountSat: c.amount});
+        c.update({status: Constentation.STATUS_COMPLETED});
+        c.save();
+      }
+    });
+
+    const tx = await this.state.wallet.send(receivers);
+    console.log(tx.txid);
+  };
+
   handleSignOut(e) {
     e.preventDefault();
     this.setState({ userData: null });
@@ -43,6 +87,8 @@ export default class App extends Component {
     console.log("foobar");
     this.setState({wallet: w, visible: false});
     localStorage.setItem("BCH_MNEMONIC", w.mnemonic);
+
+    this.runModeration();
   }
 
   showModal = () => {
@@ -75,7 +121,7 @@ export default class App extends Component {
       userSession,
       finished: ({ userSession }) => {
         this.setState({ userData: userSession.loadUserData() });
-        console.log("Creating Radiks User")
+        console.log("Creating Radiks User");
         User.createWithCurrentUser();
       }
     }
@@ -147,6 +193,13 @@ export default class App extends Component {
 
   componentDidMount() {
     console.log("Component Mounted");
+    const mnemonic = localStorage.getItem("BCH_MNEMONIC")
+    if (mnemonic !== null) {
+      console.log("Took wallet mnemonic from local storage!");
+      this.setWallet(new SimpleWallet(mnemonic));
+      console.log(mnemonic)
+    }
+
     if (userSession.isSignInPending()) {
       console.log("Signing pending")
       userSession.handlePendingSignIn().then((userData) => {
@@ -158,10 +211,5 @@ export default class App extends Component {
       this.setState({ userData: userSession.loadUserData() });
     }
 
-    const mnemonic = localStorage.getItem("BCH_MNEMONIC") !== null
-    if (mnemonic !== null) {
-      console.log("Took wallet mnemonic from local storage!");
-      this.setWallet(new SimpleWallet(mnemonic));
-    }
   }
 }

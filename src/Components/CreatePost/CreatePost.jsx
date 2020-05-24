@@ -7,17 +7,17 @@ import { useConnect } from '@blockstack/connect';
 import 'antd/dist/antd.css'
 import { makeUUID4 } from 'blockstack';
 import PostObj from "../../models/Post"
+import Wallet from "../Wallet/Wallet"
 
 const CreatePost = (props) => {
     const [previewMd, setPreviewMd] = useState(false);
     const [postTitle, setPostTitle] = useState("");
     const [postTagline, setPostTagline] = useState("");
     const [postDescription, setPostDescription] = useState("");
-    const [isPosted, setIsPosted] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     const { Header, Content, Footer } = Layout;
     const { TextArea } = Input;
-    const tabs = ['Markdown', 'Render'];
 
     const { authOptions } = useConnect();
     const { userSession } = authOptions;
@@ -30,17 +30,48 @@ const CreatePost = (props) => {
             title: postTitle,
             tagline: postTagline,
             excerpt: postDescription,
-            fileId: fileId
+            fileId: fileId,
+            author_wallet: props.wallet.cashAddress
           })
       
           await post.save();
           await userSession.putFile(fileId, postDescription, {encrypt:false})
 
-        //   setIsPosted(true);
         message.success("Post submitted!")
-
     }
 
+    if (props.wallet === null && !props.isVisible) {
+        props.showModal();
+    }
+
+    // const handleOk = e => {
+    //     console.log(e);
+    //     if (wallet === null) {
+    //         message.error("You must add your wallet to create a post");
+    //     } else {
+    //         setIsVisible(false);
+    //     }
+    //   };
+    
+    // const handleCancel = e => {
+    //     console.log(e);
+    //     if (wallet === null) {
+    //         message.error("You must add your wallet to create a post");
+    //     } else {
+    //         setIsVisible(false);
+    //     }
+    //   }; 
+
+    // const setWallet = w => {
+    //     wallet = w;
+    //     setIsVisible(wallet === null);
+    // }
+
+    // var wallet = props.wallet;
+    // if (wallet === null && !isVisible) {
+    //     setIsVisible(true);
+    // }
+    
     return (
         <div className="wrapper">
             <PageHeader onBack={() => {props.history.goBack()}} title={<div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div>}/>
@@ -67,7 +98,6 @@ const CreatePost = (props) => {
                     autoSize={{ minRows: 10, maxRows: 30 }}
                     />}
                     <Button size="large" onClick={submitPost}>Submit</Button>
-                    {/* {isPosted && <span style={{'color': 'green'}}>Successfully posted!</span>} */}
                 </Space>
             </Content>
             </Layout>

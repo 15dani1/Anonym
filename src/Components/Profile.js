@@ -58,7 +58,7 @@ export const Profile = ({ userData, handleSignOut, history }) => {
               <div className="hottest">YOUR POSTS</div>
               {isLoading && <span>Loading...</span>}
               {posts.map((post) => (
-                  <Post postId={'/' + post._id} postTitle={post.attrs.title} tagline={post.attrs.tagline} text={post.attrs.excerpt}/>
+                  <Post postId={'/' + post._id} postTitle={post.attrs.title} tagline={post.attrs.tagline} text={post.attrs.excerpt} createdAt={post.attrs.createdAt}/>
               ))}
           </div>
         </div>

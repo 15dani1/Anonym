@@ -39,9 +39,8 @@ export default class App extends Component {
   }
 
   setWallet(w) {
-    this.setState({
-      wallet: w
-    })
+    console.log("foobar");
+    this.setState({wallet: w, visible: false});
   }
 
   showModal = () => {
@@ -117,7 +116,10 @@ export default class App extends Component {
               <Route path='/create' render={
                 routeProps => !userData ? <Signin /> : <CreatePost
                                 userData={userData}
+                                wallet={this.state.wallet}
                                 handleSignOut={this.handleSignOut}
+                                showModal={this.showModal}
+                                isVisible={this.state.visible}
                                 {...routeProps} />
               }/>
               <Route path='/profile' render={
@@ -127,7 +129,7 @@ export default class App extends Component {
                                 {...routeProps} />
               }/>
               <Route path="/:postId" render={
-                props => <PostPage {...props} />
+                props => <PostPage wallet={this.state.wallet} {...props} />
               }/>
               <Route path="/">
                 <Home />

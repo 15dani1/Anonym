@@ -65,6 +65,7 @@ class PostObj extends Model {
     }
 
     async afterFetch() {
+        this.contestations = []
         this.contestations = await Contestation.fetchList({ post_id: this._id})
     }
 };

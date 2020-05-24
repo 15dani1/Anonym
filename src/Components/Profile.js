@@ -7,11 +7,11 @@ import Post from "./Posts/Post"
 import PostObj from '../models/Post'
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css'
-import { Button, Typography, PageHeader } from 'antd'
+import { Button, Tag, Typography, PageHeader, Tooltip, Affix } from 'antd'
 
 const avatarFallbackImage = 'https://s3.amazonaws.com/onename/avatar-placeholder.png';
 
-export const Profile = ({ userData, handleSignOut, history }) => {
+export const Profile = ({ userData, handleSignOut, history, showModal }) => {
   const [isLoading, setLoading] = React.useState(false);
   const [username, setUsername] = React.useState(userData.username);
   const [person, setPerson] = React.useState(new Person(userData.profile));
@@ -34,7 +34,13 @@ export const Profile = ({ userData, handleSignOut, history }) => {
 
   return (
     <div style={{height: '100%'}}>
-    <PageHeader onBack={() => {history.goBack()}} title={<div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div>}/>
+      <Affix offsetTop={5}>
+      <PageHeader onBack={() => {history.goBack()}} title={<Link to="/"><div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div></Link>}
+                extra={[
+                    <Link to="/create" ><Button shape="round">Create New Post</Button></Link>,
+                    <Button shape="round" onClick={showModal}>Wallet</Button>,
+                    <Tooltip title={!userData ? "Not currently logged in" : userData.username}><Link to="/profile" ><Button shape="round">Profile</Button></Link></Tooltip>,
+                ]}/></Affix>
     <div className="container-fluid" style={{height: '100%', margin: 'auto', width: '80%'}}>
       <br/>
       <div className="row">
@@ -44,15 +50,15 @@ export const Profile = ({ userData, handleSignOut, history }) => {
               <img src={ person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage } className="img-rounded avatar" id="avatar-image" alt=""/>
               <div className="username">
                 <h1><span id="heading-name">{ person.name() ? person.name() : 'Anonymous User' }</span></h1>
-                <span><Typography>{ username }&nbsp;|&nbsp;
-                  <Button size="large" danger onClick={ handleSignOut.bind(this)}>Logout</Button></Typography>
+                <span><Typography><Tag>{ username }</Tag>&nbsp;|&nbsp;&nbsp;&nbsp;
+                  <Button size="medium" danger onClick={ handleSignOut.bind(this)}>Logout</Button></Typography>
                 </span> 
               </div>
             </div>
           </div>
           <div className="col-md-offset-6 col-md-1 float-right">
           {/* <Button size="large" className="btn-danger" ><Link to="/create">Logout</Link></Button> */}
-          <Button size="large" className="btn-success"><Link to="/create">Create New Post</Link></Button>
+          {/* <Button size="large" className="btn-success"><Link to="/create">Create New Post</Link></Button> */}
           </div>
           <div className="feed">
               <div className="hottest">YOUR POSTS</div>

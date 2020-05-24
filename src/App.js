@@ -131,23 +131,7 @@ export default class App extends Component {
       <Connect authOptions={authOptions}>
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
-          <Tooltip title={!userData ? "Not currently logged in" : userData.username}>
-            <div className="profile">
-              { !userData ? <Signin /> : 
-              
-               <Link to="/profile" ><Button type="secondary" onClick={() =>{
-              }}      >Logged in</Button></Link>
-                }
-            </div>
-            </Tooltip>
-
-            <div className="wallet-modal-button">
-              <Tooltip title="Wallet">
-              <Button onClick={this.showModal} type="secondary" style={{top: 0, right: '150px', bottom: 0}}>
-                Wallet
-              </Button>
-              </Tooltip>
-            </div>
+          
             <Modal
                 title="Wallet"
                 visible={this.state.visible}
@@ -172,17 +156,19 @@ export default class App extends Component {
               }/>
               <Route path='/profile' render={
                 routeProps => !userData ? <Signin /> : <Profile
+                                showModal={this.showModal}
                                 userData={this.state.userData}
                                 handleSignOut={this.handleSignOut}
                                 {...routeProps} />
               }/>
               <Route path="/:postId" render={
-                props => !userData ? <Signin /> : <PostPage wallet={this.state.wallet} 
+                props => !userData ? <Signin /> : <PostPage wallet={this.state.wallet}
+                                  showModal={this.showModal}
                                   userData={this.state.userData} 
                                   {...props} />
               }/>
               <Route path="/" render={
-                routeProps => !userData ? <Signin /> : <Home />
+                routeProps => !userData ? <Signin /> : <Home userData={userData} showModal={this.showModal}/>
               }>
               </Route>
             </Switch>

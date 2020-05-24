@@ -1,19 +1,8 @@
 {
-  "name": "hello-blockstack",
-  "version": "0.0.0",
-  "description": "A simple Blockstack app using ReactJS",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/blockstack/hello-blockstack.git"
-  },
-  "bugs": {
-    "url": "https://github.com/blockstack/hello-blockstack/issues"
-  },
-  "author": {
-    "name": "Blockstack PBC",
-    "email": "editors@blockstack.com",
-    "url": "https://blockstack.org"
-  },
+  "name": "Anonym",
+  "version": "1.0.0",
+  "description": "An Anonymous Blog with Unique Content Moderation",
+  "homepage": "http://15dani1.github.io/Open-Hacks",
   "license": "MIT",
   "dependencies": {
     "@ant-design/colors": "^4.0.0",
@@ -41,7 +30,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -60,6 +51,7 @@
   },
   "devDependencies": {
     "bootstrap": "^4.3.1",
+    "gh-pages": "^2.2.0",
     "react-test-renderer": "^16.8.6"
   }
 }

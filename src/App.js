@@ -3,7 +3,6 @@ import Profile from './Components/Profile.js';
 import Signin from './Signin.js';
 import { UserSession, AppConfig } from 'blockstack';
 import { Connect } from '@blockstack/connect';
-import { SearchInput } from 'evergreen-ui'
 import { Switch, Link, Route, withRouter } from 'react-router-dom'
 import {User, configure } from 'radiks'
 import Post from "./Components/Posts/Post";
@@ -12,6 +11,7 @@ import Home from "./Components/Home"
 import PostPage from "./Components/PostPage/PostPage";
 import { Modal, Button, Tooltip } from 'antd';
 import { WalletOutlined } from '@ant-design/icons'
+import SimpleWallet from "simple-bitcoin-wallet";
 import Wallet from './Components/Wallet/Wallet'
 import PostObj from "./models/Post";
 
@@ -45,9 +45,9 @@ export default class App extends Component {
   }
 
   setWallet(w) {
-    this.setState({
-      wallet: w
-    })
+    console.log("foobar");
+    this.setState({wallet: w, visible: false});
+    localStorage.setItem("BCH_MNEMONIC", w.mnemonic);
   }
 
   showModal = () => {
@@ -123,7 +123,10 @@ export default class App extends Component {
               <Route path='/create' render={
                 routeProps => !userData ? <Signin /> : <CreatePost
                                 userData={userData}
+                                wallet={this.state.wallet}
                                 handleSignOut={this.handleSignOut}
+                                showModal={this.showModal}
+                                isVisible={this.state.visible}
                                 {...routeProps} />
               }/>
               <Route path='/profile' render={
@@ -133,7 +136,7 @@ export default class App extends Component {
                                 {...routeProps} />
               }/>
               <Route path="/:postId" render={
-                props => <PostPage {...props} />
+                props => <PostPage wallet={this.state.wallet} {...props} />
               }/>
               <Route path="/">
                 <Home />
@@ -157,6 +160,12 @@ export default class App extends Component {
     } else if (userSession.isUserSignedIn()) {
       this.setState({ userData: userSession.loadUserData() });
       this.fetchData();
+    }
+
+    const mnemonic = localStorage.getItem("BCH_MNEMONIC") !== null
+    if (mnemonic !== null) {
+      console.log("Took wallet mnemonic from local storage!");
+      this.setWallet(new SimpleWallet(mnemonic));
     }
   }
 }

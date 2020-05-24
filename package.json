@@ -2,7 +2,7 @@
   "name": "Anonym",
   "version": "1.0.0",
   "description": "An Anonymous Blog with Unique Content Moderation",
-  "homepage": "http://15dani1.github.io/Open-Hacks",
+  "homepage": "https://www.4nonym.space/",
   "license": "MIT",
   "dependencies": {
     "@ant-design/colors": "^4.0.0",

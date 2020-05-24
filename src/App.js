@@ -80,6 +80,7 @@ export default class App extends Component {
     e.preventDefault();
     this.setState({ userData: null });
     userSession.signUserOut(window.location.origin);
+    localStorage.clear();
   }
 
   setWallet(w) {
@@ -154,7 +155,7 @@ export default class App extends Component {
                 onCancel={this.handleCancel}
                 footer={null}
             >
-              <Wallet setWallet={this.setWallet}/>
+              <Wallet setWallet={this.setWallet} wallet={this.state.wallet}/>
             </Modal>
             <Switch>
               {/*<Route path='/firstPost'>*/}

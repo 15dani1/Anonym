@@ -4,6 +4,13 @@
     text-align: left;
     margin-bottom: 40px;
 }
+.wrapper {
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: #000000;
+    font-size: 20px;
+}
 
 .postTitle {
     font-family: Playfair Display;

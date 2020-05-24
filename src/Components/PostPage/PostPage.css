@@ -9,13 +9,13 @@
 
 .websiteNameSmall {
     position: absolute;
-    top: 10px;
+    top: 15px;
     left: 40px;
 
     font-family: Playfair Display;
     font-style: normal;
     font-weight: bold;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 
     color: black;
 }

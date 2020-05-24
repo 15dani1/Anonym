@@ -2,7 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Modal, Button, Input, message } from 'antd'
 import { FormOutlined } from '@ant-design/icons'
-
+import './PostPage.css'
 import PostObj from "../../models/Post"
 import { getConfig } from 'radiks'
 import { PageHeader, Divider, Comment, Avatar, Tooltip, Affix } from 'antd'

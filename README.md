@@ -1,68 +1,51 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Anonym
+An anonymous, decentralized blogging platform powered by the blockchain through the [Blockstack API](https://blockstack.org/) and React.JS 
 
-## Available Scripts
+Built during OpenHacks 2020. Checkout our [DevPost](https://devpost.com/software/open-hacks) for a Demo!
+## Motivation
+Freedom of speech is a bastion of American society. However, it is not always clear what delineates hateful speech from simply a controversial opinion. As a result, many people choose not to speak their mind for fear of being shouted down or derided. Anonym aims to provide a free space where users can speak their ideas freely in complete anonymity. It is a blogging platform which helps ideas surface by removing the fear of retribution, allowing for everyone's open contribution to democratic society and continuing the tradition of a society of free and independent thinkers.
 
-In the project directory, you can run:
+However, such an anonymous space is also a prime location for hateful and violent speech. Such speech does not contribute to thoughtful discussion and is harmful to our democracy. Many tech companies are currently under fire for their content moderation practices. This is why we built a novel content moderation scheme which leverages the principles of the market to weed out hateful and violent speech while leaving controverial opinions untouched.
 
-### `npm start`
+## What it does
+Users log in anonymously via Blockstack. They are in complete control of their data because there is no central server which stores their identity or information. Everything outside of their posts is encrypted. See the [content moderation](#content-moderation) section to learn how it works
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How we built it
+We used BlockStack's Gaia storage system to store the posts and comments, along with React JS as the web framework with the Ant Design UI kit. We also used Heroku to deploy the default Blockstack Radiks server to faciliate interactions with the Gaia Storage system. The front-end is hosted on Github Pages.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## <a name="content-moderation"></a>Content Moderation
+This is a state diagram of each Post
+![Content Moderation](Images/cm_1.png)
+In designing the content moderation scheme, these were the considerations:
+1. Users should be as anonymous as possible
+    -  Their only identification is their BCH Wallet
+2. Odious content should be removed
+    - A supermajority in favor of taking down the post will be reached easily
+3. Contentious topics should not be taken down frivolously
+    - A supermajority must be reached to take down a post
+    - Users assign a dollar value proportional to their feelings
+4. Each user’s opinion has equal weight
+    - There is a cap on the number of amount of BCH that can be bet (approx $10 U.S.D)
+    - Users can only contest a post once
+5. Organized individuals cannot sway whether or not a post is taken down
+    - Contestation ends when the last bet was placed over 1 day ago
 
-### `npm test`
+## Installation Guide
+1. Install MongoDB
+2. Start Mongo
+3. `$ mongo`
+4. `> use anonym`
+5. `> db.createUser({user: "admin", pwd:"open-hacks",roles: ["readWrite","dbAdmin"]});`
+6. `$ npm install -g radiks-server`
+7. `$ npm install`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Startup Guide
+1. Load the radiks environment file
+2. `$ radiks-server`
+3. `$ npm run start`
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Creators
+- Anmol Parande
+- Roshan Kumaraswamy
+- Rohil Tuli
+- Rahul Dani

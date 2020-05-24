@@ -21,7 +21,6 @@ export default class PostPage extends React.Component {
         this.createContestation = this.createContestation.bind(this);
         this.submitComment = this.submitComment.bind(this);
 
-        console.log(props.userData);
         const { userSession } = getConfig();
         const userData = userSession.loadUserData();
 

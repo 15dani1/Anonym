@@ -177,12 +177,13 @@ export default class App extends Component {
                                 {...routeProps} />
               }/>
               <Route path="/:postId" render={
-                props => <PostPage wallet={this.state.wallet} 
+                props => !userData ? <Signin /> : <PostPage wallet={this.state.wallet} 
                                   userData={this.state.userData} 
                                   {...props} />
               }/>
-              <Route path="/">
-                <Home />
+              <Route path="/" render={
+                routeProps => !userData ? <Signin /> : <Home />
+              }>
               </Route>
             </Switch>
           </div>

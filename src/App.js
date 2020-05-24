@@ -39,6 +39,7 @@ export default class App extends Component {
 
   setWallet(w) {
     this.state.wallet = w;
+    console.log("wallet set!!")
   }
 
   showModal = () => {
@@ -95,6 +96,7 @@ export default class App extends Component {
                 visible={this.state.visible}
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
+                footer={null}
             >
               <Wallet setWallet={this.setWallet}/>
             </Modal>

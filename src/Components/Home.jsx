@@ -42,7 +42,7 @@ export default class Home extends React.Component {
                 <div className="feed">
                     <div className="hottest">HOTTEST POSTS</div>
                     {this.state.isLoading && <span>Loading...</span>}
-                    {this.state.posts.map((post) => (new RegExp(this.state.searchInput, 'i')).test(post.attrs.title) ? (
+                    {this.state.posts.map((post) => (new RegExp(this.state.searchInput, 'i')).test(post.attrs.title) || (new RegExp(this.state.searchInput, 'i')).test(post.attrs.tagline) || (new RegExp(this.state.searchInput, 'i')).test(post.attrs.excerpt) ? (
                         <Post postId={'/' + post._id} createdAt={post.attrs.createdAt} postTitle={post.attrs.title} tagline={post.attrs.tagline} text={post.attrs.excerpt}/>
                     ) : null)}
                 </div>

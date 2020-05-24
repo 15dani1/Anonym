@@ -39,7 +39,9 @@ export default class App extends Component {
   }
 
   setWallet(w) {
-    this.state.wallet = w;
+    this.setState({
+      wallet: w
+    })
   }
 
   showModal = () => {
@@ -82,11 +84,11 @@ export default class App extends Component {
       <Connect authOptions={authOptions}>
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
-          <Tooltip title={!userData ? "Loading..." : userData.username}>
+          <Tooltip title={!userData ? "Not currently logged in" : userData.username}>
             <div className="profile">
               { !userData ? <Signin /> : 
               
-               <Link to="/profile" ><Button type="primary" onClick={() =>{
+               <Link to="/profile" ><Button type="secondary" onClick={() =>{
               }}      >Logged in</Button></Link>
                 }
             </div>
@@ -94,13 +96,13 @@ export default class App extends Component {
 
             <div className="wallet-modal-button">
               <Tooltip title="Wallet">
-              <Button onClick={this.showModal} size="large" style={{top: 0, right: '80px', bottom: 0}}>
-                <WalletOutlined/>
+              <Button onClick={this.showModal} type="secondary" style={{top: 0, right: '150px', bottom: 0}}>
+                Wallet
               </Button>
               </Tooltip>
             </div>
             <Modal
-                title="Basic Modal"
+                title="Wallet"
                 visible={this.state.visible}
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}

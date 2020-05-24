@@ -7,11 +7,11 @@ import Post from "./Posts/Post"
 import PostObj from '../models/Post'
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css'
-import { Button } from 'antd'
+import { Button, Typography, PageHeader } from 'antd'
 
 const avatarFallbackImage = 'https://s3.amazonaws.com/onename/avatar-placeholder.png';
 
-export const Profile = ({ userData, handleSignOut}) => {
+export const Profile = ({ userData, handleSignOut, history }) => {
   const [isLoading, setLoading] = React.useState(false);
   const [username, setUsername] = React.useState(userData.username);
   const [person, setPerson] = React.useState(new Person(userData.profile));
@@ -33,9 +33,9 @@ export const Profile = ({ userData, handleSignOut}) => {
   }, [username]);
 
   return (
-    <div className="container-fluid">
-      <br/>
-      <br/>
+    <div style={{height: '100%'}}>
+    <PageHeader onBack={() => {history.goBack()}} title={<div className="websiteNameSmall"> &nbsp;&nbsp; Anonym</div>}/>
+    <div className="container-fluid" style={{height: '100%', margin: 'auto', width: '80%'}}>
       <br/>
       <div className="row">
         <div className="col-md-offset-3 col-md-6">
@@ -43,14 +43,16 @@ export const Profile = ({ userData, handleSignOut}) => {
             <div className="avatar-section">
               <img src={ person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage } className="img-rounded avatar" id="avatar-image" alt=""/>
               <div className="username">
-                <h1><span id="heading-name">{ person.name() ? person.name() : 'Nameless Person' }</span></h1>
-                <span>{ username }</span>
-                <span>&nbsp;|&nbsp;<a onClick={ handleSignOut.bind(this)}>(Logout)</a></span>
+                <h1><span id="heading-name">{ person.name() ? person.name() : 'Anonymous User' }</span></h1>
+                <span><Typography>{ username }&nbsp;|&nbsp;
+                  <Button size="large" danger><Link to="/create">Logout</Link></Button></Typography>
+                </span>
               </div>
             </div>
           </div>
-          <div className="col-md-offset-6 col-md-6 float-right">
-          <Button size="large" className="btn-success"><Link to="/create">Create New</Link></Button>
+          <div className="col-md-offset-6 col-md-1 float-right">
+          {/* <Button size="large" className="btn-danger" ><Link to="/create">Logout</Link></Button> */}
+          <Button size="large" className="btn-success"><Link to="/create">Create New Post</Link></Button>
           </div>
           <div className="feed">
               <div className="hottest">YOUR POSTS</div>
@@ -61,6 +63,7 @@ export const Profile = ({ userData, handleSignOut}) => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

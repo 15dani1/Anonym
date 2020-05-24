@@ -7,7 +7,7 @@ import Post from "./Posts/Post"
 import PostObj from '../models/Post'
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css'
-import { Button, Typography, PageHeader, Tooltip, Affix } from 'antd'
+import { Button, Tag, Typography, PageHeader, Tooltip, Affix } from 'antd'
 
 const avatarFallbackImage = 'https://s3.amazonaws.com/onename/avatar-placeholder.png';
 
@@ -50,15 +50,15 @@ export const Profile = ({ userData, handleSignOut, history, showModal }) => {
               <img src={ person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage } className="img-rounded avatar" id="avatar-image" alt=""/>
               <div className="username">
                 <h1><span id="heading-name">{ person.name() ? person.name() : 'Anonymous User' }</span></h1>
-                <span><Typography>{ username }&nbsp;|&nbsp;
-                  <Button size="large" danger onClick={ handleSignOut.bind(this)}>Logout</Button></Typography>
+                <span><Typography><Tag>{ username }</Tag>&nbsp;|&nbsp;&nbsp;&nbsp;
+                  <Button size="medium" danger onClick={ handleSignOut.bind(this)}>Logout</Button></Typography>
                 </span> 
               </div>
             </div>
           </div>
           <div className="col-md-offset-6 col-md-1 float-right">
           {/* <Button size="large" className="btn-danger" ><Link to="/create">Logout</Link></Button> */}
-          <Button size="large" className="btn-success"><Link to="/create">Create New Post</Link></Button>
+          {/* <Button size="large" className="btn-success"><Link to="/create">Create New Post</Link></Button> */}
           </div>
           <div className="feed">
               <div className="hottest">YOUR POSTS</div>

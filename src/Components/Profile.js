@@ -45,8 +45,8 @@ export const Profile = ({ userData, handleSignOut, history }) => {
               <div className="username">
                 <h1><span id="heading-name">{ person.name() ? person.name() : 'Anonymous User' }</span></h1>
                 <span><Typography>{ username }&nbsp;|&nbsp;
-                  <Button size="large" danger><Link to="/create">Logout</Link></Button></Typography>
-                </span>
+                  <Button size="large" danger onClick={ handleSignOut.bind(this)}>Logout</Button></Typography>
+                </span> 
               </div>
             </div>
           </div>

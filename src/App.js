@@ -19,8 +19,8 @@ import Constentation from "./models/Contestation";
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
 
-console.log("Connected to server:" + process.env.RADIKS_SERVER);
-configure({ apiServer: process.env.RADIKS_SERVER || "http://localhost:1260", userSession})
+console.log("Connected to server:" + process.env.PORT);
+configure({ apiServer: process.env.PORT || "http://localhost:1260", userSession})
 
 export default class App extends Component {
   state = {

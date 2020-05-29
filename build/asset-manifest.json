@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/Open-Hacks/static/css/main.3cd973ab.chunk.css",
-    "main.js": "/Open-Hacks/static/js/main.3abfaa5e.chunk.js",
-    "main.js.map": "/Open-Hacks/static/js/main.3abfaa5e.chunk.js.map",
-    "runtime-main.js": "/Open-Hacks/static/js/runtime-main.5230469d.js",
-    "runtime-main.js.map": "/Open-Hacks/static/js/runtime-main.5230469d.js.map",
-    "static/css/2.2e7b0b3f.chunk.css": "/Open-Hacks/static/css/2.2e7b0b3f.chunk.css",
-    "static/js/2.e10d77f4.chunk.js": "/Open-Hacks/static/js/2.e10d77f4.chunk.js",
-    "static/js/2.e10d77f4.chunk.js.map": "/Open-Hacks/static/js/2.e10d77f4.chunk.js.map",
-    "index.html": "/Open-Hacks/index.html",
-    "precache-manifest.c7ed15fd01b9be74b09899598747c3cb.js": "/Open-Hacks/precache-manifest.c7ed15fd01b9be74b09899598747c3cb.js",
-    "service-worker.js": "/Open-Hacks/service-worker.js",
-    "static/css/2.2e7b0b3f.chunk.css.map": "/Open-Hacks/static/css/2.2e7b0b3f.chunk.css.map",
-    "static/css/main.3cd973ab.chunk.css.map": "/Open-Hacks/static/css/main.3cd973ab.chunk.css.map",
-    "static/js/2.e10d77f4.chunk.js.LICENSE.txt": "/Open-Hacks/static/js/2.e10d77f4.chunk.js.LICENSE.txt",
-    "static/media/Hat.jpg": "/Open-Hacks/static/media/Hat.ef5a97cd.jpg"
+    "main.css": "/static/css/main.3cd973ab.chunk.css",
+    "main.js": "/static/js/main.138e62d8.chunk.js",
+    "main.js.map": "/static/js/main.138e62d8.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.1f6fc8e2.js",
+    "runtime-main.js.map": "/static/js/runtime-main.1f6fc8e2.js.map",
+    "static/css/2.2e7b0b3f.chunk.css": "/static/css/2.2e7b0b3f.chunk.css",
+    "static/js/2.82e790cf.chunk.js": "/static/js/2.82e790cf.chunk.js",
+    "static/js/2.82e790cf.chunk.js.map": "/static/js/2.82e790cf.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.c2ec19d564f05bedf135d902fd97eceb.js": "/precache-manifest.c2ec19d564f05bedf135d902fd97eceb.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.2e7b0b3f.chunk.css.map": "/static/css/2.2e7b0b3f.chunk.css.map",
+    "static/css/main.3cd973ab.chunk.css.map": "/static/css/main.3cd973ab.chunk.css.map",
+    "static/js/2.82e790cf.chunk.js.LICENSE.txt": "/static/js/2.82e790cf.chunk.js.LICENSE.txt",
+    "static/media/Hat.jpg": "/static/media/Hat.ef5a97cd.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.5230469d.js",
+    "static/js/runtime-main.1f6fc8e2.js",
     "static/css/2.2e7b0b3f.chunk.css",
-    "static/js/2.e10d77f4.chunk.js",
+    "static/js/2.82e790cf.chunk.js",
     "static/css/main.3cd973ab.chunk.css",
-    "static/js/main.3abfaa5e.chunk.js"
+    "static/js/main.138e62d8.chunk.js"
   ]
 }

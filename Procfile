@@ -1,2 +1,2 @@
-web: node src/server.js
+web: PORT=$PORT node src/server.js
 

@@ -16,6 +16,9 @@ app.listen(port);
 
 console.log(`Radiks Server listening on ${port}`);
 
+const secondPort = process.env.REACT_APP_PORT || 5000;
+console.log(`We also have ${secondPort}`);
+
 app.use(express.static(path.join(__dirname, '../build')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../build'))

@@ -15,12 +15,14 @@ import SimpleWallet from "simple-bitcoin-wallet";
 import Wallet from './Components/Wallet/Wallet'
 import PostObj from "./models/Post";
 import Constentation from "./models/Contestation";
+import 'dotenv/config';
 
 const appConfig = new AppConfig(['store_write', 'publish_data'])
 const userSession = new UserSession({ appConfig: appConfig })
 
-console.log("Connected to server:" + process.env.PORT);
-configure({ apiServer: process.env.PORT || "http://localhost:1260", userSession})
+// console.log("Connected to server:" + process.env.REACT_APP_PORT);
+// configure({ apiServer: process.env.REACT_APP_PORT || "http://localhost:1260", userSession})
+configure({ apiServer: "https://anonym-radiks.herokuapp.com", userSession})
 
 export default class App extends Component {
   state = {
